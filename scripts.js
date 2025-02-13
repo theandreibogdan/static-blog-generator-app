@@ -87,4 +87,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fontManager.loadGoogleFont('Roboto');
     fontManager.createFontSelector();
     fontManager.loadFontsInBackground();
+
+    // Add click handler for back button
+    const backBtn = document.querySelector('.back-btn');
+    if (backBtn) {
+        backBtn.addEventListener('click', () => {
+            const url = backBtn.getAttribute('href');
+            if (url) {
+                window.location.href = url;
+            }
+        });
+    }
+
+    // Add this function to handle navigation
+    function handleBackNavigation(e) {
+        // Check if there are unsaved changes
+        if (window.editor?.quill?.hasFocus()) {
+            const confirmMessage = 'You have unsaved changes. Are you sure you want to leave?';
+            if (!confirm(confirmMessage)) {
+                e.preventDefault();
+            }
+        }
+    }
+
+    // Add the event listener
+    document.querySelector('.back-btn').addEventListener('click', handleBackNavigation);
 });
