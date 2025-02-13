@@ -38,6 +38,11 @@ class Editor {
     init() {
         console.log('Initializing editor...');
         try {
+            // Check if Quill is loaded
+            if (typeof Quill === 'undefined') {
+                throw new Error('Quill is not loaded. Please check the CDN URL.');
+            }
+
             // Create Quill container if it doesn't exist
             const editorContent = document.querySelector('.article-content');
             if (!editorContent) {
@@ -50,111 +55,61 @@ class Editor {
             editorContent.appendChild(editorContainer);
             console.log('Quill container created');
 
-            // Add default styles before Quill initialization
-            const defaultStyles = document.createElement('style');
-            defaultStyles.textContent = `
-                #quill-editor .ql-editor {
-                    font-size: ${this.defaultTheme.fontSize};
-                    line-height: ${this.defaultTheme.lineHeight};
-                    color: ${this.defaultTheme.textColor};
-                    background-color: ${this.defaultTheme.backgroundColor};
-                }
-                
-                #quill-editor .ql-editor h1 {
-                    font-size: ${this.defaultTheme.h1.fontSize};
-                    margin-bottom: ${this.defaultTheme.h1.marginBottom};
-                    line-height: 1.2;
-                }
-                
-                #quill-editor .ql-editor h2 {
-                    font-size: ${this.defaultTheme.h2.fontSize};
-                    margin-bottom: ${this.defaultTheme.h2.marginBottom};
-                    line-height: 1.2;
-                }
-                
-                #quill-editor .ql-editor h3 {
-                    font-size: ${this.defaultTheme.h3.fontSize};
-                    margin-bottom: ${this.defaultTheme.h3.marginBottom};
-                    line-height: 1.3;
-                }
-                
-                #quill-editor .ql-editor h4 {
-                    font-size: ${this.defaultTheme.h4.fontSize};
-                    margin-bottom: ${this.defaultTheme.h4.marginBottom};
-                    line-height: 1.4;
-                }
-                
-                #quill-editor .ql-editor p {
-                    margin-bottom: ${this.defaultTheme.paragraph.marginBottom};
-                }
-                
-                #quill-editor .ql-editor a {
-                    color: ${this.defaultTheme.linkColor};
-                }
-                
-                /* Add spacing between elements */
-                #quill-editor .ql-editor > * + * {
-                    margin-top: 0.5rem;
-                }
-                
-                /* Add extra spacing after headings */
-                #quill-editor .ql-editor h1 + *,
-                #quill-editor .ql-editor h2 + *,
-                #quill-editor .ql-editor h3 + *,
-                #quill-editor .ql-editor h4 + * {
-                    margin-top: 1rem;
-                }
-            `;
-            document.head.appendChild(defaultStyles);
+            // Add a small delay to ensure Quill is fully loaded
+            setTimeout(() => {
+                try {
+                    // Initialize Quill with bubble theme and formatting options
+                    this.quill = new Quill('#quill-editor', {
+                        theme: 'bubble',
+                        placeholder: 'Start writing your blog post...',
+                        modules: {
+                            toolbar: [
+                                ['bold', 'italic', 'underline', 'strike'],
+                                ['blockquote', 'code-block'],
+                                [{ 'header': [1, 2, 3, 4, false] }],
+                                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                                [{ 'script': 'sub' }, { 'script': 'super' }],
+                                ['image'],
+                                ['clean']
+                            ]
+                        }
+                    });
 
-            // Initialize Quill with bubble theme and formatting options
-            this.quill = new Quill('#quill-editor', {
-                theme: 'bubble',
-                placeholder: 'Start writing your blog post...',
-                modules: {
-                    toolbar: [
-                        ['bold', 'italic', 'underline', 'strike'],
-                        ['blockquote', 'code-block'],
-                        [{ 'header': [1, 2, 3, 4, false] }],
-                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                        [{ 'script': 'sub' }, { 'script': 'super' }],
-                        ['image'],
-                        ['clean']
-                    ]
-                }
-            });
+                    // Add image handler
+                    this.quill.getModule('toolbar').addHandler('image', () => {
+                        const input = document.createElement('input');
+                        input.setAttribute('type', 'file');
+                        input.setAttribute('accept', 'image/*');
+                        input.click();
 
-            // Add image handler
-            this.quill.getModule('toolbar').addHandler('image', () => {
-                const input = document.createElement('input');
-                input.setAttribute('type', 'file');
-                input.setAttribute('accept', 'image/*');
-                input.click();
-
-                input.onchange = () => {
-                    const file = input.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            const range = this.quill.getSelection(true);
-                            this.quill.insertEmbed(range.index, 'image', e.target.result);
+                        input.onchange = () => {
+                            const file = input.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                    const range = this.quill.getSelection(true);
+                                    this.quill.insertEmbed(range.index, 'image', e.target.result);
+                                };
+                                reader.readAsDataURL(file);
+                            }
                         };
-                        reader.readAsDataURL(file);
-                    }
-                };
-            });
+                    });
 
-            // Set initial content
-            this.quill.setContents([
-                { insert: 'Getting Started with Blog Builder\n', attributes: { header: 1 } },
-                { insert: 'Welcome to your new article!\n', attributes: { header: 2 } },
-                { insert: 'Start writing your content here...\n' }
-            ]);
+                    // Set initial content
+                    this.quill.setContents([
+                        { insert: 'Getting Started with Blog Builder\n', attributes: { header: 1 } },
+                        { insert: 'Welcome to your new article!\n', attributes: { header: 2 } },
+                        { insert: 'Start writing your content here...\n' }
+                    ]);
 
-            // Initialize theme listeners
-            this.initThemeListeners();
+                    // Initialize theme listeners
+                    this.initThemeListeners();
 
-            console.log('Quill initialized successfully'); // Debug log
+                    console.log('Quill initialized successfully');
+                } catch (error) {
+                    console.error('Error during Quill initialization:', error);
+                }
+            }, 100);
 
         } catch (error) {
             console.error('Error initializing Quill:', error);
