@@ -47,7 +47,7 @@
     border-radius: 50%;
     margin-right: 24px;
     background-color: #f0f0f0;
-    background-image: url('/static-blog-generator-app/images/profilepic.jpg');
+    background-image: url('https://theandreibogdan.github.io/static-blog-generator-app/images/profilepic.jpg');
     background-size: cover;
     background-position: center;
     border: 3px solid #000;
