@@ -1,0 +1,1438 @@
+:root {
+    --primary-color: #1a1a1a;
+    --sidebar-width: 300px;
+    --header-height: 60px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: var(--primary-color);
+}
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    border-bottom: 1px solid #eee;
+    justify-content: space-between;
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.back-btn {
+    color: #666;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.25rem;
+}
+
+.logo i {
+    color: #666;
+    font-size: 1.25rem;
+}
+
+.divider {
+    width: 1px;
+    height: 24px;
+    background: #e0e0e0;
+    margin: 0 8px;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 4px;
+    padding: 0;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+    background: #f5f5f5;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.icon-btn i {
+    font-size: 18px;
+    transition: transform 0.2s ease;
+}
+
+.icon-btn:hover i {
+    transform: scale(1.1);
+}
+
+.main-content {
+    display: flex;
+    flex: 1;
+    margin-top: var(--header-height);
+    min-height: 100vh;
+    overflow-y: auto;
+    background-color: #f5f7f9;
+    transition: all 0.3s ease;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    border-right: 1px solid #eee;
+    height: calc(100vh - var(--header-height));
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    overflow: hidden;
+    padding: 20px 20px 0px 20px;
+    background: white;
+    z-index: 90;
+    opacity: 1;
+    transform: translateX(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.tab.active {
+    font-weight: bold;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.editor {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    background-color: #f5f7f9;
+    position: relative;
+    min-height: 100vh;
+    margin-left: var(--sidebar-width);
+    transition: all 0.3s ease;
+}
+
+.editor-content {
+    width: 100%;
+    max-width: 1000px;
+    padding: 100px 120px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    margin-bottom: 40px;
+    transition: padding 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease;
+    font-size: 18px;
+}
+
+.ql-editor {
+    font-size: 18px;
+    /* Default size */
+}
+
+.ql-editor p,
+.ql-editor li,
+.ql-editor span,
+.ql-editor div {
+    font-size: inherit !important;
+}
+
+/* Ensure headings don't inherit unless specifically set */
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3,
+.ql-editor h4 {
+    font-size: revert;
+}
+
+.media-uploader:hover,
+.media-uploader.dragover {
+    border-color: #2196f3;
+    background: rgba(33, 150, 243, 0.05);
+}
+
+.media-uploader .file-input {
+    display: none;
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #f0f4f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-icon i {
+    font-size: 24px;
+    color: #2196f3;
+}
+
+.upload-text .primary-text {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.theme-options,
+.seo-options {
+    height: calc(100vh - var(--header-height) - 68px);
+    overflow-y: auto;
+    padding: 0 20px 20px 20px;
+}
+
+.theme-section,
+.seo-section {
+    margin-bottom: 24px;
+}
+
+.theme-section h3,
+.seo-section h3 {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.theme-control,
+.seo-control {
+    margin-bottom: 16px;
+}
+
+.theme-control label,
+.seo-control label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.theme-control input[type="range"] {
+    width: 100%;
+    margin: 0;
+}
+
+.theme-control input[type="color"] {
+    width: 100%;
+    height: 32px;
+    padding: 2px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.theme-control select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.theme-control .value {
+    position: relative;
+    min-width: 60px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    color: #666;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+    cursor: text;
+    transition: all 0.2s ease;
+    background: #f5f5f5;
+}
+
+.theme-control .value:hover {
+    background: #eeeeee;
+}
+
+.theme-control .value:focus {
+    outline: none;
+    background: #f0f0f0;
+    border-color: transparent;
+    caret-color: var(--primary-color);
+}
+
+.theme-control .value:focus::after {
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 14px;
+    background-color: var(--primary-color);
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    from,
+    to {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.theme-control .value:hover {
+    background: #eeeeee;
+}
+
+.range-with-value {
+    width: 100%;
+}
+
+.theme-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.theme-control-left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.theme-control label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+}
+
+.theme-control input[type="range"] {
+    width: 100%;
+    margin: 0;
+}
+
+.theme-control input[type="color"] {
+    width: 100%;
+    height: 32px;
+    padding: 2px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.theme-control select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.theme-control .value {
+    position: relative;
+    min-width: 60px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    color: #666;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+    cursor: text;
+    transition: all 0.2s ease;
+    background: #f5f5f5;
+}
+
+.theme-control .value:hover {
+    background: #eeeeee;
+}
+
+.theme-control .value:focus {
+    outline: none;
+    background: #f0f0f0;
+    border-color: transparent;
+    caret-color: var(--primary-color);
+}
+
+.seo-control input[type="text"],
+.seo-control input[type="url"],
+.seo-control textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.seo-control textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+.character-count {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    text-align: right;
+    margin-top: 4px;
+}
+
+.theme-options {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+.theme-control+.theme-control {
+    margin-top: 12px;
+}
+
+.theme-section h3+.theme-control {
+    margin-top: 16px;
+}
+
+.theme-section h3 {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 16px;
+}
+
+.block-options,
+.block-item,
+.block-dropdown,
+.dropdown-item {
+    font-size: inherit;
+    line-height: normal;
+    font-family: inherit;
+}
+
+.theme-options::-webkit-scrollbar {
+    width: 6px;
+}
+
+.theme-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.theme-options::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 3px;
+}
+
+.theme-options::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
+}
+
+.theme-options {
+    scrollbar-width: thin;
+    scrollbar-color: #ddd transparent;
+}
+
+.font-select-wrapper {
+    position: relative;
+}
+
+.font-select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 0;
+    z-index: 10;
+}
+
+.selected-font {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+/* Add dropdown arrow */
+.selected-font::after {
+    content: '▼';
+    font-size: 12px;
+    color: #666;
+    margin-left: 8px;
+}
+
+/* Hover state */
+.selected-font:hover {
+    border-color: #2196f3;
+    background: #f8f9fa;
+}
+
+/* When dropdown is open */
+.selected-font.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Style the font name */
+.selected-font span {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+
+/* Custom dropdown items instead of native select */
+.font-option {
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    border-bottom: 1px solid #eee;
+    line-height: 1.4;
+}
+
+.font-option:hover {
+    background: #f5f7f9;
+}
+
+.font-option.selected {
+    background: #f0f0f0;
+}
+
+.font-option span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.font-search-container {
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    z-index: 1;
+}
+
+.font-search {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #f5f7f9;
+}
+
+.font-search:focus {
+    outline: none;
+    border-color: #2196f3;
+}
+
+.font-option.loading {
+    position: relative;
+    opacity: 0.7;
+}
+
+.font-loading-spinner {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: translateY(-50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+.font-loading-status {
+    margin-left: 8px;
+    font-size: 12px;
+    font-style: italic;
+}
+
+
+
+/* Add these styles */
+.app-container.preview-mode .sidebar {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.app-container.preview-mode .main-content {
+    margin-left: 0;
+    background-color: white;
+}
+
+.app-container.preview-mode .editor {
+    margin-left: 0;
+    width: 100%;
+    background-color: white;
+}
+
+.app-container.preview-mode .editor-content {
+    max-width: 1000px;
+    padding: 100px 120px;
+    box-shadow: none;
+    border-radius: 0;
+    position: relative;
+}
+
+.app-container.preview-mode .editor-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px dashed rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+/* Hide editor-specific elements in preview mode */
+.app-container.preview-mode [contenteditable="true"] {
+    outline: none;
+}
+
+.app-container.preview-mode .editor-content *[contenteditable="true"]:hover {
+    outline: none;
+    background: transparent;
+}
+
+.app-container.preview-mode .code-header,
+.app-container.preview-mode .media-controls,
+.app-container.preview-mode .preview-mode-overlay {
+    display: none !important;
+}
+
+/* Style for the preview mode button */
+.preview-mode-btn.active {
+    background-color: #e3f2fd;
+    color: #2196f3;
+}
+
+.preview-mode-btn.active:hover {
+    background-color: #bbdefb;
+}
+
+/* Update loading spinner styles */
+.loading-spinner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.loading-spinner-container.hiding {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #2196f3;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+
+.loading-text {
+    color: #666;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/* Add these transition styles */
+.main-content {
+    transition: background-color 0.3s ease;
+}
+
+.sidebar {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.editor {
+    transition: margin 0.3s ease, width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Modify the preview mode styles */
+.app-container.preview-mode .sidebar {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.app-container.preview-mode .editor {
+    margin-left: 0;
+    width: 100%;
+    background-color: white;
+}
+
+/* Add transition for any buttons or icons that change */
+.preview-mode-btn i {
+    transition: transform 0.3s ease;
+}
+
+/* Add transitions for media blocks */
+.media-block {
+    transition: all 0.3s ease;
+}
+
+.preview-mode-overlay {
+    transition: opacity 0.3s ease;
+}
+
+/* Add transitions for any other elements that change in preview mode */
+.header-controls button {
+    transition: opacity 0.3s ease;
+}
+
+.app-container.preview-mode .header-controls button:not(.preview-mode-btn) {
+    opacity: 0.5;
+}
+
+/* Add tooltip styles */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:hover::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+[data-tooltip]:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-bottom-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+/* Update the test text styles */
+#scroll-here {
+    background-color: #f5f7f9;
+    color: #f5f7f9;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0;
+    /* Remove any default margins */
+}
+
+/* Update test text in preview mode */
+.app-container.preview-mode #scroll-here {
+    background-color: white !important;
+    /* Add !important to override inline styles */
+    color: white;
+}
+
+/* Update the settings sidebar styles */
+.settings-sidebar {
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    position: fixed;
+    top: var(--header-height);
+    right: 0;
+    background: white;
+    border-left: 1px solid #eee;
+    overflow-y: auto;
+    z-index: 90;
+    transform: translateX(100%);
+    /* Hide by default */
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Show the sidebar when settings are open */
+.app-container.settings-open .settings-sidebar {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Ensure it's hidden in preview mode */
+.app-container.preview-mode .settings-sidebar {
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Update editor margins for consistency */
+.app-container.settings-open .editor {
+    margin-right: var(--sidebar-width);
+}
+
+.settings-content {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.settings-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    color: var(--primary-color);
+}
+
+.settings-section {
+    margin-bottom: 32px;
+    transform-origin: top;
+    transition: all 0.3s ease-in-out;
+}
+
+.settings-section h3 {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.settings-control {
+    margin-bottom: 16px;
+}
+
+.settings-control label {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.range-with-value {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.range-with-value input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.range-with-value input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.range-with-value input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.range-with-value .value,
+.theme-control .value,
+.settings-control .value {
+    position: relative;
+    min-width: 60px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    color: #666;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+    cursor: text;
+    transition: all 0.2s ease;
+    background: #f5f5f5;
+}
+
+.range-with-value .value:hover,
+.theme-control .value:hover,
+.settings-control .value:hover {
+    background: #eeeeee;
+}
+
+.range-with-value .value:focus,
+.theme-control .value:focus,
+.settings-control .value:focus {
+    outline: none;
+    background: #f0f0f0;
+    border-color: transparent;
+}
+
+/* Style the range input */
+input[type="range"] {
+    -webkit-appearance: none;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+/* Update editor transition */
+.editor {
+    transition: margin 0.3s ease;
+}
+
+/* Update settings button styles */
+.settings-btn {
+    position: relative;
+}
+
+.settings-btn i {
+    transition: transform 0.3s ease;
+}
+
+.settings-btn.active {
+    background-color: #e3f2fd;
+    color: #2196f3;
+}
+
+/* Add smooth transitions for sidebars */
+.sidebar,
+.settings-sidebar {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Add to your existing styles */
+.blocks-btn i {
+    transition: transform 0.3s ease;
+}
+
+.blocks-btn.active {
+    background-color: #e3f2fd;
+    color: #2196f3;
+}
+
+/* Add these spinner styles */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.icon-btn i.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+/* Add transition for smooth icon changes */
+.icon-btn i {
+    transition: transform 0.2s ease;
+}
+
+/* Add these styles for the export button */
+.header-controls .export-site-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.header-controls .export-site-btn i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure spinner animation maintains centering */
+.header-controls .export-site-btn i.fa-spinner {
+    animation: spin 1s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Device Switcher Styles */
+.device-preview {
+    margin-bottom: 2rem;
+}
+
+.device-switcher {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    width: 100%;
+    padding: 2px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+.device-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.device-btn i {
+    font-size: 22px;
+    margin: 0;
+}
+
+.device-btn span {
+    display: none;
+}
+
+.device-btn .size-indicator {
+    display: none;
+}
+
+.device-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.device-btn::after {
+    display: none;
+}
+
+/* Desktop Sizes Panel */
+.desktop-sizes {
+    display: none;
+    flex-direction: column;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-top: 4px;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform-origin: top;
+}
+
+.desktop-sizes.show {
+    display: flex;
+    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scaleY(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
+}
+
+.size-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    width: 100%;
+}
+
+.size-btn i {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.size-btn:hover {
+    background: var(--hover-color);
+}
+
+.size-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Padding Controls */
+.padding-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 12px;
+    width: 100%;
+}
+
+/* Smooth transitions for editor content */
+.editor-content {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Update Theme Options Slider Values */
+.theme-options .theme-control .range-with-value {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.theme-options .theme-control .range-with-value .value {
+    position: relative;
+    min-width: 60px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    color: #666;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+    cursor: text;
+    transition: all 0.2s ease;
+    background: #f5f5f5;
+}
+
+.theme-options .theme-control .range-with-value .value:hover {
+    background: #eeeeee;
+}
+
+.theme-options .theme-control .range-with-value .value:focus {
+    outline: none;
+    background: #f0f0f0;
+    border-color: transparent;
+}
+
+/* Remove any conflicting styles */
+.theme-control .range-with-value,
+.settings-control .range-with-value {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Remove old range input styles */
+input[type="range"] {
+    -webkit-appearance: none;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Update the scrollbar styles */
+::-webkit-scrollbar {
+    width: 3px;
+    /* Even thinner */
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    /* Remove background */
+    margin: 4px 0;
+    /* Add some margin to create rounded ends effect */
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(193, 193, 193, 0.5);
+    /* More transparent */
+    border-radius: 4px;
+    /* Rounder edges */
+    transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 168, 168, 0.8);
+    width: 5px;
+    /* Slightly wider on hover */
+}
+
+/* Update Firefox scrollbar styles */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(193, 193, 193, 0.5) transparent;
+}
+
+/* Add specific style for html element */
+html {
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+}
+
+/* Apply custom scrollbar to specific elements */
+.sidebar,
+.theme-options,
+.seo-options,
+.command-palette-results,
+.settings-content,
+.templates-list {
+
+    /* Hide scrollbar by default */
+    &::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
+
+    /* Show scrollbar on hover */
+    &:hover::-webkit-scrollbar-thumb {
+        background: rgba(193, 193, 193, 0.5);
+    }
+}
+
+/* Add these styles for the advanced settings section */
+.advanced-settings-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 24px;
+    background: none;
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.advanced-settings-btn:hover {
+    background: #f5f7f9;
+    border-color: #2196f3;
+    color: #2196f3;
+}
+
+.advanced-settings-btn i {
+    transition: transform 0.3s ease;
+}
+
+.advanced-settings-btn.active i {
+    transform: rotate(180deg);
+}
+
+.advanced-settings {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #eee;
+    display: none;
+    animation: slideDown 0.3s ease forwards;
+}
+
+.tracking-code-field {
+    margin-bottom: 24px;
+}
+
+.tracking-code-field label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #666;
+    font-size: 14px;
+}
+
+.tracking-code-field label i {
+    color: #2196f3;
+}
+
+.tracking-code-field textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    resize: vertical;
+    background: #f8f9fa;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+.tracking-code-field textarea:focus {
+    outline: none;
+    border-color: #2196f3;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.tracking-code-field .helper-text {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tracking-code-field .helper-text i {
+    font-size: 14px;
+    color: #2196f3;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

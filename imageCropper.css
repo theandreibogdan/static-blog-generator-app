@@ -1,0 +1,274 @@
+.crop-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.crop-modal.visible {
+    display: flex;
+}
+
+.crop-container {
+    background: white;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 1200px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.crop-header {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.crop-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #666;
+}
+
+.crop-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: auto;
+    height: calc(90vh - 60px);
+}
+
+.crop-area {
+    min-height: 400px;
+    background: #f5f5f5;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.crop-controls {
+    margin-top: 8px;
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+}
+
+.crop-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.crop-btn.primary {
+    background: #2196f3;
+    color: white;
+}
+
+.crop-btn.secondary {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.crop-btn i {
+    font-size: 16px;
+}
+
+.crop-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 16px 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.compression-info {
+    position: absolute;
+    bottom: 16px;
+    left: 24px;
+    font-size: 12px;
+    color: #666;
+}
+
+.crop-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Improve cropper UI */
+.cropper-view-box,
+.cropper-face {
+    border-radius: 0;
+}
+
+.cropper-line {
+    background-color: #2196f3;
+}
+
+.cropper-point {
+    background-color: #2196f3;
+    width: 8px;
+    height: 8px;
+}
+
+.cropper-view-box {
+    outline: 2px solid #2196f3;
+    outline-color: rgba(33, 150, 243, 0.75);
+}
+
+.quality-control {
+    background: #f5f5f5;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 16px;
+}
+
+.quality-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.quality-value {
+    font-weight: 500;
+    color: #2196f3;
+}
+
+.quality-slider {
+    width: 100%;
+    height: 4px;
+    background: #ddd;
+    border-radius: 2px;
+    appearance: none;
+    outline: none;
+}
+
+.quality-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #2196f3;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.quality-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.quality-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+}
+
+.file-size {
+    transition: color 0.3s ease;
+}
+
+.file-size.warning {
+    color: #f44336;
+}
+
+.quality-hint {
+    font-style: italic;
+}
+
+.crop-preview-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    min-height: 400px;
+}
+
+.preview-area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.preview-area h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.preview-image-container {
+    flex: 1;
+    background: #f5f5f5;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Add loading animation for preview */
+.preview-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: none;
+}
+
+.preview-image-container.loading::before {
+    display: block;
+}
+
+.preview-image-container.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #2196f3;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none;
+}
+
+.preview-image-container.loading::after {
+    display: block;
+} 

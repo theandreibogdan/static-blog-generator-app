@@ -1,0 +1,325 @@
+.toast-container {
+    position: fixed;
+    z-index: 1000;
+    /* Remove default positioning */
+}
+
+/* Position classes */
+.toast-container.top-right {
+    top: 20px;
+    right: 20px;
+}
+
+.toast-container.top-left {
+    top: 20px;
+    left: 20px;
+}
+
+.toast-container.bottom-right {
+    bottom: 20px;
+    right: 20px;
+}
+
+.toast-container.bottom-left {
+    bottom: 20px;
+    left: 20px;
+}
+
+.toast-container.top-center {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.toast-container.bottom-center {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toast-container.center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Update animations for different positions */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInCenter {
+    from {
+        transform: translate(-50%, -40%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInTopCenter {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.toast {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    min-width: 300px;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideInRight 0.3s ease forwards;
+}
+
+.toast-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+}
+
+.toast-content {
+    flex-grow: 1;
+}
+
+.toast-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.toast-description {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.toast-close {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    margin-left: 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toast-close:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Pre-defined color schemes */
+.toast-success {
+    background-color: #ecfdf5;
+    color: #065f46;
+}
+
+.toast-error {
+    background-color: #fef2f2;
+    color: #991b1b;
+}
+
+.toast-warning {
+    background-color: #fffbeb;
+    color: #92400e;
+}
+
+.toast-info {
+    background-color: #eff6ff;
+    color: #1e40af;
+}
+
+/* Position-specific animations */
+.toast-container.top-center .toast {
+    animation: slideInTopCenter 0.3s ease-out;
+}
+
+.toast.fade-out {
+    animation: fadeOut 0.3s ease-out forwards;
+    pointer-events: none;
+}
+
+/* Add shake animation keyframes */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-4px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(4px);
+    }
+}
+
+/* Add combined animation for error toasts */
+@keyframes slideInAndShake {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    60%, 100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    65%, 85% {
+        transform: translateX(-4px);
+    }
+    75%, 95% {
+        transform: translateX(4px);
+    }
+}
+
+/* Special animation for error toasts */
+.toast-container.top-center .toast.toast-error {
+    animation: slideInAndShake 0.8s ease-out;
+}
+
+/* Remove the hover animation for error toasts */
+.toast.toast-error:hover {
+    animation: none;
+}
+
+/* Update the fade-out animation to work with error toasts */
+.toast.toast-error.fade-out {
+    animation: fadeOut 0.3s ease-out forwards !important;
+    /* Override shake animation when fading out */
+}
+
+/* Add these animations to the existing toast.css */
+@keyframes shakeError {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-4px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(4px);
+    }
+}
+
+/* Update the toast class */
+.toast {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    min-width: 300px;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideInRight 0.3s ease forwards;
+}
+
+/* Add specific animations for success and error toasts */
+.toast.toast-success {
+    background: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    color: #15803d;
+}
+
+.toast.toast-error {
+    background: #fef2f2;
+    border-left: 4px solid #ef4444;
+    color: #b91c1c;
+    animation: slideInRight 0.3s ease forwards, shakeError 0.5s ease 0.2s forwards;
+}

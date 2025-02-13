@@ -1,0 +1,54 @@
+/* Export button styles */
+.export-site-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.export-site-btn:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.export-site-btn:active {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.export-site-btn i {
+    font-size: 18px;
+    color: var(--text-primary);
+    transition: transform 0.2s ease;
+}
+
+.export-site-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.export-site-btn i.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+/* Export success animation */
+@keyframes success-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.export-success .export-site-btn i {
+    animation: success-pulse 0.3s ease-in-out;
+} 

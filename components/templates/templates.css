@@ -1,0 +1,140 @@
+.template-options {
+    padding-top: 4px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.template-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.template-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.template-icon {
+    width: 48px;
+    height: 48px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #4b5563;
+}
+
+.template-info {
+    flex: 1;
+}
+
+.template-info h3 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #111827;
+}
+
+.template-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.templates-search {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.templates-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 4px;
+    overflow-y: auto;
+    padding-right: 8px;
+    position: relative;
+}
+
+/* Add fade effects */
+.templates-list::before,
+.templates-list::after {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 12px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.templates-list::before {
+    top: 120px;
+    /* Position after the search box */
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 0) 100%);
+    backdrop-filter: blur(2px);
+}
+
+.templates-list::after {
+    bottom: 8px;
+    background: linear-gradient(to top,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 0) 100%);
+    backdrop-filter: blur(2px);
+}
+
+/* Thinner scrollbar */
+.templates-list::-webkit-scrollbar {
+    width: 4px;
+    /* Reduced from 6px */
+}
+
+.templates-list::-webkit-scrollbar-track {
+    background: rgba(241, 241, 241, 0.5);
+    border-radius: 2px;
+}
+
+.templates-list::-webkit-scrollbar-thumb {
+    background: rgba(193, 193, 193, 0.8);
+    border-radius: 2px;
+    transition: background 0.2s ease;
+}
+
+.templates-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 168, 168, 0.8);
+}
